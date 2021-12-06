@@ -7,7 +7,7 @@ INCLUDE Irvine32.inc
 .data
 	;--------- Enter Data Here
 	vName byte "Hunter Burningham",0
-	vAssignment byte "Assembler Assignment #4",0
+	vAssignment byte "Assembler #5",0
 	vSemester byte "CS2810 Fall Semester 2021",0
 	
 	vStartprompt byte "Guess a number between 0 and 100: ",0
@@ -23,11 +23,10 @@ INCLUDE Irvine32.inc
 .code
 main PROC
 	;--------- Enter Code Below Here
+
 	Call header
 	call StartGame
 
-	xor ecx, ecx
-	call readchar
 
 	Header:
 		mov dh, 4
@@ -56,6 +55,8 @@ main PROC
 		call WriteString
 		call WriteString
 
+		call randomize
+
 		mov eax, 101
 		call RandomRange 
 
@@ -70,7 +71,6 @@ main PROC
 
 		call ReadDec
 
-		
 		call WriteDec		;appends answer given to whichever offset
 		
 		
@@ -129,7 +129,9 @@ main PROC
 
 		;if 1 jump to StartGame
 		cmp eax, 1
-		jz StartGame
+		
+		call clrscr 
+		jmp StartGame
 
 		;else
 		mov edx, offset vCarriageReturn
